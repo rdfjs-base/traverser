@@ -37,7 +37,7 @@ function forEach ({ backward, callback, dataset, filter, forward, term, visited 
 }
 
 class Traverser {
-  constructor ({ backward = false, factory, filter, forward = true }) {
+  constructor (filter, { backward = false, factory, forward = true }) {
     this.backward = backward
     this.factory = factory
     this.filter = filter

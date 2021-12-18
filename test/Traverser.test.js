@@ -15,14 +15,14 @@ describe('Traverser', function () {
 
   describe('.forEach', () => {
     it('should be a method', () => {
-      const traverser = new Traverser({})
+      const traverser = new Traverser(() => {}, {})
 
       strictEqual(typeof traverser.forEach, 'function')
     })
 
     it('should call the filter with quad, level and dataset arguments', () => {
       const example = filterCall()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.forEach(example, () => {})
 
@@ -31,7 +31,7 @@ describe('Traverser', function () {
 
     it('should stop traversing further if the filter returns false', () => {
       const example = forwardStop()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.forEach(example, () => {})
 
@@ -40,7 +40,7 @@ describe('Traverser', function () {
 
     it('should stop backward traversing further if the filter returns false', () => {
       const example = backwardStop()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.forEach(example, () => {})
 
@@ -49,7 +49,7 @@ describe('Traverser', function () {
 
     it('should visit quads only once', () => {
       const example = visitOnce()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.forEach(example, () => {})
 
@@ -58,7 +58,7 @@ describe('Traverser', function () {
 
     it('should call the callback with quad, level and dataset arguments', () => {
       const example = callbackCall()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.forEach(example, example.forEach)
 
@@ -68,14 +68,14 @@ describe('Traverser', function () {
 
   describe('.match', () => {
     it('should be a method', () => {
-      const traverser = new Traverser({})
+      const traverser = new Traverser(() => {}, {})
 
       strictEqual(typeof traverser.match, 'function')
     })
 
     it('should call the filter with quad, level and dataset arguments', () => {
       const example = filterCall()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.match(example)
 
@@ -84,7 +84,7 @@ describe('Traverser', function () {
 
     it('should stop traversing further if the filter returns false', () => {
       const example = forwardStop()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.match(example)
 
@@ -93,7 +93,7 @@ describe('Traverser', function () {
 
     it('should stop backward traversing further if the filter returns false', () => {
       const example = backwardStop()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.match(example)
 
@@ -102,7 +102,7 @@ describe('Traverser', function () {
 
     it('should visit quads only once', () => {
       const example = visitOnce()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.match(example)
 
@@ -124,7 +124,7 @@ describe('Traverser', function () {
         ]
       })
 
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       example.checkMatch(traverser.match(example))
     })
@@ -146,7 +146,7 @@ describe('Traverser', function () {
         ]
       })
 
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       example.checkMatch(traverser.match(example))
     })
@@ -154,14 +154,14 @@ describe('Traverser', function () {
 
   describe('.reduce', () => {
     it('should be a method', () => {
-      const traverser = new Traverser({})
+      const traverser = new Traverser(() => {}, {})
 
       strictEqual(typeof traverser.reduce, 'function')
     })
 
     it('should call the filter with quad, level and dataset arguments', () => {
       const example = filterCall()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.reduce(example, () => {})
 
@@ -170,7 +170,7 @@ describe('Traverser', function () {
 
     it('should stop traversing further if the filter returns false', () => {
       const example = forwardStop()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.reduce(example, () => {})
 
@@ -179,7 +179,7 @@ describe('Traverser', function () {
 
     it('should stop backward traversing further if the filter returns false', () => {
       const example = backwardStop()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.reduce(example, () => {})
 
@@ -188,7 +188,7 @@ describe('Traverser', function () {
 
     it('should visit quads only once', () => {
       const example = visitOnce()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.reduce(example, () => {})
 
@@ -197,7 +197,7 @@ describe('Traverser', function () {
 
     it('should call the callback with quad, result, level and dataset arguments', () => {
       const example = callbackCall()
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       traverser.reduce(example, example.reduce)
 
@@ -217,7 +217,7 @@ describe('Traverser', function () {
         }
       })
 
-      const traverser = new Traverser(example)
+      const traverser = new Traverser(...example.args)
 
       const result = traverser.reduce(example, example.reduce, '')
 

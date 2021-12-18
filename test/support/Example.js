@@ -67,6 +67,10 @@ class Example {
     this.reduce = this._reduce.bind(this)
   }
 
+  get args () {
+    return [this.filter, this]
+  }
+
   _filter (...args) {
     this.actualFilterCalls.push(args)
 
