@@ -1,4 +1,5 @@
 import { deepStrictEqual, strictEqual } from 'assert'
+import toNT from '@rdfjs/to-ntriples'
 import toCanonical from 'rdf-dataset-ext/toCanonical.js'
 import rdf from './factory.js'
 
@@ -95,7 +96,7 @@ class Example {
     this.filterCalls.forEach((filterCall, index) => {
       const actualFilterCall = this.actualFilterCalls[index]
 
-      strictEqual(actualFilterCall[0].quad.toString(), filterCall.quad.toString())
+      strictEqual(toNT(actualFilterCall[0].quad), toNT(filterCall.quad))
       strictEqual(actualFilterCall[0].dataset, this.dataset)
       strictEqual(actualFilterCall[0].level, filterCall.level)
     })
@@ -107,7 +108,7 @@ class Example {
     this.forEachCalls.forEach((forEachCall, index) => {
       const actualForEachCall = this.actualForEachCalls[index]
 
-      strictEqual(actualForEachCall[0].quad.toString(), forEachCall.quad.toString())
+      strictEqual(toNT(actualForEachCall[0].quad), toNT(forEachCall.quad))
       strictEqual(actualForEachCall[0].dataset, this.dataset)
       strictEqual(actualForEachCall[0].level, forEachCall.level)
     })
@@ -119,7 +120,7 @@ class Example {
     this.reduceCalls.forEach((reduceCall, index) => {
       const actualReduceCall = this.actualReduceCalls[index]
 
-      strictEqual(actualReduceCall[0].quad.toString(), reduceCall[0].quad.toString(), true)
+      strictEqual(toNT(actualReduceCall[0].quad), toNT(reduceCall[0].quad))
       strictEqual(actualReduceCall[0].dataset, this.dataset)
       strictEqual(actualReduceCall[0].level, reduceCall[0].level)
       deepStrictEqual(actualReduceCall[1], reduceCall[1])
@@ -231,11 +232,32 @@ function visitOnce () {
   })
 }
 
+function visitOnceLevel () {
+  return new Example({
+    term: ns.a,
+    dataset: [
+      [ns.a, ns.p1, ns.a],
+      [ns.a, ns.p2, ns.b]
+    ],
+    filterCalls: [{
+      level: 0,
+      quad: [ns.a, ns.p1, ns.a]
+    }, {
+      level: 1,
+      quad: [ns.a, ns.p2, ns.b]
+    }, {
+      level: 0,
+      quad: [ns.a, ns.p2, ns.b]
+    }]
+  })
+}
+
 export default Example
 export {
   backwardStop,
   callbackCall,
   filterCall,
   forwardStop,
-  visitOnce
+  visitOnce,
+  visitOnceLevel
 }

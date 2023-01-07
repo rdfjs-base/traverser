@@ -3,7 +3,14 @@ import toNT from '@rdfjs/to-ntriples'
 import { describe, it } from 'mocha'
 import toCanonical from 'rdf-dataset-ext/toCanonical.js'
 import Traverser from '../Traverser.js'
-import TraverserExample, { backwardStop, callbackCall, filterCall, forwardStop, visitOnce } from './support/Example.js'
+import TraverserExample, {
+  backwardStop,
+  callbackCall,
+  filterCall,
+  forwardStop,
+  visitOnce,
+  visitOnceLevel
+} from './support/Example.js'
 import rdf from './support/factory.js'
 
 const ns = rdf.namespace('http://example.org/')
@@ -49,6 +56,15 @@ describe('Traverser', function () {
 
     it('should visit quads only once', () => {
       const example = visitOnce()
+      const traverser = new Traverser(...example.args)
+
+      traverser.forEach(example, () => {})
+
+      example.checkFilterCalls()
+    })
+
+    it('should visit quads only once unless the level is lower or equal', () => {
+      const example = visitOnceLevel()
       const traverser = new Traverser(...example.args)
 
       traverser.forEach(example, () => {})
@@ -102,6 +118,15 @@ describe('Traverser', function () {
 
     it('should visit quads only once', () => {
       const example = visitOnce()
+      const traverser = new Traverser(...example.args)
+
+      traverser.match(example)
+
+      example.checkFilterCalls()
+    })
+
+    it('should visit quads only once unless the level is lower or equal', () => {
+      const example = visitOnceLevel()
       const traverser = new Traverser(...example.args)
 
       traverser.match(example)
@@ -188,6 +213,15 @@ describe('Traverser', function () {
 
     it('should visit quads only once', () => {
       const example = visitOnce()
+      const traverser = new Traverser(...example.args)
+
+      traverser.reduce(example, () => {})
+
+      example.checkFilterCalls()
+    })
+
+    it('should visit quads only once unless the level is lower or equal', () => {
+      const example = visitOnceLevel()
       const traverser = new Traverser(...example.args)
 
       traverser.reduce(example, () => {})
