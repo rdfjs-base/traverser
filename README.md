@@ -1,6 +1,6 @@
 # @rdfjs/traverser
 
-[![Build Status](https://img.shields.io/github/workflow/status/rdfjs-base/traverser/CI)](https://github.com/rdfjs-base/traverser/actions/workflows/ci.yaml)
+[![build status](https://img.shields.io/github/actions/workflow/status/rdfjs-base/traverser/test.yaml?branch=master)](https://github.com/rdfjs-base/traverser/actions/workflows/test.yaml)
 
 [![npm version](https://img.shields.io/npm/v/@rdfjs/traverser.svg)](https://www.npmjs.com/package/@rdfjs/traverser)
 
