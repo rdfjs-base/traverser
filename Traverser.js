@@ -1,12 +1,34 @@
-function forEach ({ backward, callback, dataset, filter, forward, term, visited }) {
+import toNT from '@rdfjs/to-ntriples'
+
+class Visisted {
+  constructor () {
+    this.quadLevel = new Map()
+  }
+
+  add (quad, level) {
+    this.quadLevel.set(toNT(quad), level)
+  }
+
+  has (quad, level) {
+    const seenAt = this.quadLevel.get(toNT(quad))
+
+    if (seenAt === undefined) {
+      return false
+    }
+
+    return seenAt <= level
+  }
+}
+
+function forEach ({ backward, callback, dataset, filter, forward, term, visited = new Visisted() }) {
   const next = (term, level) => {
     const checkMatches = matches => {
       for (const quad of matches) {
-        if (visited.has(quad)) {
+        if (visited.has(quad, level)) {
           continue
         }
 
-        visited.add(quad)
+        visited.add(quad, level)
 
         const args = { dataset, level, quad }
 
@@ -51,8 +73,7 @@ class Traverser {
       dataset,
       filter: this.filter,
       forward: this.forward,
-      term,
-      visited: this.factory.dataset()
+      term
     })
   }
 
@@ -65,8 +86,7 @@ class Traverser {
       dataset,
       filter: this.filter,
       forward: this.forward,
-      term,
-      visited: this.factory.dataset()
+      term
     })
 
     return result
@@ -83,8 +103,7 @@ class Traverser {
       dataset,
       filter: this.filter,
       forward: this.forward,
-      term,
-      visited: this.factory.dataset()
+      term
     })
 
     return result
