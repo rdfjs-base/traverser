@@ -1,6 +1,6 @@
 {
   "name": "@rdfjs/traverser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generic traverser for RDF/JS datasets",
   "type": "module",
   "main": "Traverser.js",
@@ -23,9 +23,11 @@
     "url": "https://github.com/rdfjs-base/traverser/issues"
   },
   "homepage": "https://github.com/rdfjs-base/traverser",
+  "dependencies": {
+    "@rdfjs/to-ntriples": "^2.0.0"
+  },
   "devDependencies": {
     "@rdfjs/environment": "^0.1.1",
-    "@rdfjs/to-ntriples": "^2.0.0",
     "c8": "^7.10.0",
     "codecov": "^3.8.3",
     "mocha": "^9.1.3",
