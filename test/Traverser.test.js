@@ -1,7 +1,6 @@
 import { strictEqual } from 'assert'
 import toNT from '@rdfjs/to-ntriples'
 import { describe, it } from 'mocha'
-import toCanonical from 'rdf-dataset-ext/toCanonical.js'
 import Traverser from '../Traverser.js'
 import TraverserExample, {
   backwardStop,
@@ -255,7 +254,7 @@ describe('Traverser', function () {
 
       const result = traverser.reduce(example, example.reduce, '')
 
-      strictEqual(result, toCanonical(example.dataset))
+      strictEqual(result, toNT(example.dataset))
     })
   })
 })
