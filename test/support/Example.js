@@ -1,6 +1,6 @@
 import { deepStrictEqual, strictEqual } from 'assert'
 import toNT from '@rdfjs/to-ntriples'
-import toCanonical from 'rdf-dataset-ext/toCanonical.js'
+import { datasetEqual } from 'rdf-test/assert.js'
 import rdf from './factory.js'
 
 const ns = rdf.namespace('http://example.org/')
@@ -128,7 +128,7 @@ class Example {
   }
 
   checkMatch (result) {
-    strictEqual(toCanonical(result), toCanonical(this.match))
+    datasetEqual(result, this.match)
   }
 }
 
